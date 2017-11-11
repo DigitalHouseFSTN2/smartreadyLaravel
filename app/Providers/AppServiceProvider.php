@@ -14,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //				schema::defaultStringLength(191);
-    }
+
+		}
 
     /**
      * Register any application services.

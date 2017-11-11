@@ -2,14 +2,21 @@
 	<!-- navigation menu goes in here -->
 	<div class="container-fluid">
 		<div class="navbar-header">
+
 			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
 				<span class="sr-only">Toggle navigation</span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
+
+
+
 			<a class="navbar-brand" href="#">SmartReady</a>
+
+
 		</div>
+
 		<div id="navbar" class="navbar-collapse collapse">
 			<ul class="nav navbar-nav">
 				<li class="icon-link">
@@ -19,18 +26,14 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Quienes somos <span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="{{ url('/') }}">Acerca de</a></li>
-						<?php
-							/*
-							if(empty($_SESSION['email'])){
-								echo '<li role="separator" class="divider"></li>';
-								echo '<li><a href="login.php">Ingreso</a></li>';
-								echo '<li><a href="register.php">Registracion</a></li>';
-							} else {
-								echo '<li><a href="user.php">Usuario</a></li>';
-								echo '<li><a href="updatepassword.php">Cambio de clave</a></li>';
-							}
-							*/
-						?>
+							@guest
+								<li role="separator" class="divider"></li>
+								<li><a href="{{url('/login')}}">Ingreso</a></li>
+								<li><a href="{{url('/regiser')}}">Registracion</a></li>
+							@else
+								<li><a href="user.php">Usuario</a></li>
+								<li><a href="updatepassword.php">Cambio de clave</a></li>
+							@endguest
 					</ul>
 				</li>
 				<li>
@@ -39,30 +42,33 @@
 				<li>
 						<a href="{{ url('/plans') }}">Planes</a>
 				</li>
-				<?php
-					/*
-					if(!empty($_SESSION['email'])){
-						echo '<li>';
-						echo  '<a href="exit.php">Salir</a>';
-						echo  '</li>';
-					}
-					*/
-				?>
+					@guest
+
+					@else
+						<li>
+							<a href="{{route('logout')}}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();>">Salir</a>
+						</li>
+					@endguest
 			</ul>
 			<ul class="nav navbar-nav navbar-right">
-				<?php
-					/*
-					if(!empty($_SESSION['email'])){
-						echo '<li><a href="user.php">' . $_SESSION["name"] . '  ' . $_SESSION["lastName"] . '  '.  '<i class="fa fa-user"></i></a></li>';
-					}
-					*/
-				?>
+				@guest
+
+				@else
+				<li>
+					<a href="{{url('/user')}}"><i class="fa fa-user"></i>  {{ Auth::user()->name }} - {{ Auth::user()->last_name }}
+
+					</a>
+				</li>
+				@endguest
 				<li><a href="#"><i class="fa fa-twitter"></i></a></li>
 				<li><a href="#"><i class="fa fa-facebook"></i></a></li>
 				<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
 				<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+
 			</ul>
 		</ul>
 		<!--/.nav-collapse -->
 	</div><!--/.container-fluid -->
 </nav>
+<script src="{{ asset('js/app.js') }}"></script>
