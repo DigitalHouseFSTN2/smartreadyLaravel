@@ -11,13 +11,13 @@
 |
 */
 Auth::routes();
-Route::get('/logout', 'Auth\AuthController@getLogout');
+
 
 
 Route::get('/'				, function () {return view('home');});
 Route::get('/plans'		, function () {return view('homeplans');});
 Route::get('/service'		, function () {return view('homeservice');});
 
-
+Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
